@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertical and Horizontal Bar Charts without Chart.js</title>
+  <style>
+    .chartBox {
+      width: 600px;
+      margin: 20px auto;
+    }
+    .barChart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 300px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 30px;
+    }
+    .horizontalBarChart {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+      height: auto;
+    }
+    .bar {
+      position: relative;
+      background-color: rgba(54, 162, 235, 0.6);
+      margin: 5px;
+    }
+    .barLabel {
+      position: absolute;
+      font-weight: bold;
+      color: blue;
+    }
+    /* Styling for vertical bar chart bars */
+    .verticalBar {
+      width: 15%;
+    }
+    .verticalBar .barLabel {
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    /* Styling for horizontal bar chart bars */
+    .horizontalBar {
+      height: 25px;
+      margin: 10px 0;
+    }
+    .horizontalBar .barLabel {
+      top: 50%;
+      left: 105%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+<body>
+
+<div class="chartBox">
+  <h3>Vertical Bar Chart</h3>
+  <div class="barChart" id="verticalBarChart"></div>
+</div>
+
+<div class="chartBox">
+  <h3>Horizontal Bar Chart</h3>
+  <div class="barChart horizontalBarChart" id="horizontalBarChart"></div>
+</div>
+
+<script>
+  // Data for the charts
+  const data = [
+    { label: 'Red', value: 12, color: 'rgba(255, 99, 132, 0.6)' },
+    { label: 'Blue', value: 19, color: 'rgba(54, 162, 235, 0.6)' },
+    { label: 'Yellow', value: 3, color: 'rgba(255, 206, 86, 0.6)' },
+    { label: 'Green', value: 5, color: 'rgba(75, 192, 192, 0.6)' },
+    { label: 'Purple', value: 2, color: 'rgba(153, 102, 255, 0.6)' },
+    { label: 'Orange', value: 3, color: 'rgba(255, 159, 64, 0.6)' }
+  ];
+
+  // Function to create vertical bar chart
+  function createVerticalChart(data) {
+    const chartContainer = document.getElementById('verticalBarChart');
+    data.forEach(item => {
+      const bar = document.createElement('div');
+      bar.classList.add('bar', 'verticalBar');
+      bar.style.height = `${item.value * 10}px`;
+      bar.style.backgroundColor = item.color;
+
+      const label = document.createElement('div');
+      label.classList.add('barLabel');
+      label.textContent = item.label;
+
+      bar.appendChild(label);
+      chartContainer.appendChild(bar);
+    });
+  }
+
+  // Function to create horizontal bar chart
+  function createHorizontalChart(data) {
+    const chartContainer = document.getElementById('horizontalBarChart');
+    data.forEach(item => {
+      const bar = document.createElement('div');
+      bar.classList.add('bar', 'horizontalBar');
+      bar.style.width = `${item.value * 20}px`;  // Scale width for visualization
+      bar.style.backgroundColor = item.color;
+
+      const label = document.createElement('div');
+      label.classList.add('barLabel');
+      label.textContent = item.label;
+
+      bar.appendChild(label);
+      chartContainer.appendChild(bar);
+    });
+  }
+
+  // Create both charts
+  createVerticalChart(data);
+  createHorizontalChart(data);
+</script>
+
+</body>
+</html>
